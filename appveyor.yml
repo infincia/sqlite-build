@@ -77,7 +77,7 @@ before_deploy:
   - appveyor PushArtifact ../%PROJECT_NAME%-%APPVEYOR_REPO_TAG_NAME%-%TARGET%.zip
 
 deploy:
-  description: 'Sqlite Build for Windows'
+  description: 'SQLite static library builds for Windows'
   artifact: /.*\.zip/
   auth_token:
     secure: cW2lNuSBqYoZhkWPcNmD/QQ5gyvXu7oM0etZqA9hvnu/BqRSWgDuiKvYWrGsHPIZ
