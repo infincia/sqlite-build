@@ -1,13 +1,15 @@
 ECHO building sqlite3 for Windows (%TARGET%)
 
 mkdir dist-$TARGET
-mkdir dist-$TARGET\lib
+mkdir dist-$TARGET\lib\MT
+mkdir dist-$TARGET\lib\MD
 mkdir dist-$TARGET\include
 
-cl sqlite3\sqlite3.c -link -dll -out:dist-$TARGET\lib\sqlite3.dll
+cl /c /EHsc /MT sqlite3\sqlite3.c /OUT:sqlite3MT.obj
+lib sqlite3MT.obj /MACHINE:%ARCH% /OUT:dist-$TARGET\lib\MT\sqlite3.lib
 
-cl -c sqlite3\sqlite3.c
-lib sqlite3.obj -OUT:dist-$TARGET\lib\sqlite3.lib
+cl /c /EHsc /MD sqlite3\sqlite3.c /OUT:sqlite3MD.obj
+lib sqlite3MD.obj /MACHINE:%ARCH% /OUT:dist-$TARGET\lib\MD\sqlite3.lib
 
 copy sqlite3\sqlite3.h dist-$TARGET\include\
 copy sqlite3\sqlite3ext.h dist-$TARGET\include\
